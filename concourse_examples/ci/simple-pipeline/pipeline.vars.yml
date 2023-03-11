@@ -1,0 +1,6 @@
+ci-repo:
+  host: github.com
+  slug: satya-dillikar/ci_playground
+  branch: main
+
+dockerhub-proxy: harbor-repo.vmware.com/dockerhub-proxy-cache

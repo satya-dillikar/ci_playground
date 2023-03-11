@@ -1,0 +1,14 @@
+---
+platform: linux
+image_resource:
+  type: registry-image
+  source: {repository: harbor-repo.vmware.com/dockerhub-proxy-cache/library/busybox}
+run:
+  path: sh
+  args:
+    - -exc
+    - |
+      echo "make-a-file-task"
+      ls -la; echo "Created a file on $(date)" > ./files/created_file
+outputs:
+  - name: files

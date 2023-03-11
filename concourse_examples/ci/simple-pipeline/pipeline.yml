@@ -1,0 +1,43 @@
+resources:
+- name: ci-repo
+  type: git
+  check_every: 1m
+  icon: github
+  source:
+    uri: https://((ci-repo.host))/((ci-repo.slug))
+    branch: ((ci-repo.branch))
+    paths:
+    - concourse_examples/ci/qs-test/
+    - concourse_examples/ci/tasks/
+jobs:
+- name: set-pipeline
+  plan:
+  - get: ci-repo
+    params:
+      submodules: none
+    trigger: true
+  - set_pipeline: self
+    file: ci-repo/concourse_examples/ci/qs-test/pipeline.yml
+    var_files:
+    - ci-repo/concourse_examples/ci/qs-test/pipeline.vars.yml
+
+#! ---> main ----
+- name: task-static
+  plan:
+  - in_parallel:
+    - get: ci-repo
+      passed: [ set-pipeline ]
+  - task: task-static
+    file: ci-repo/concourse_examples/ci/tasks/task-static/task.yml
+
+- name: task-create-and-consume
+  public: true
+  plan:
+  - in_parallel:
+    - get: ci-repo
+      passed: [ task-static ]
+  - task: make-a-file
+    file: ci-repo/concourse_examples/ci/tasks/task-create-and-consume/make-a-file-task.yml
+    config:
+  - task: consume-the-file
+    file: ci-repo/concourse_examples/ci/tasks/task-create-and-consume/consume-the-file-task.yml

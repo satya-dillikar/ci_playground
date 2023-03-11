@@ -1,0 +1,14 @@
+---
+platform: linux
+image_resource:
+  type: registry-image
+  source: {repository: harbor-repo.vmware.com/dockerhub-proxy-cache/library/busybox}
+inputs:
+  - name: files
+run:
+  path: sh
+  args:
+    - -exc
+    - |
+      echo "consume-the-file-task"
+      cat ./files/created_file

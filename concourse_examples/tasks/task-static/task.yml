@@ -1,0 +1,11 @@
+---
+platform: linux
+image_resource:
+  type: registry-image
+  source:
+    repository: tappc-docker-local.artifactory.eng.vmware.com/ci/docker-image
+    tag: latest
+inputs:
+- name: ci-repo
+run:
+  path: ci-repo/concourse_examples/ci/tasks/test-static/task.sh
