@@ -8,21 +8,11 @@ resources:
     branch: ((ci-repo.branch))
 jobs:
 
-- name: job-head
-  plan:
-  - get: ci-repo
-    trigger: true
-  - set_pipeline: self
-    file: ci-repo/concourse_examples/ci/simple-pipeline/pipeline.yml
-    var_files:
-    - ci-repo/concourse_examples/ci/simple-pipeline/pipeline.vars.yml
-
 - name: job-static
   plan:
   - in_parallel:
     - get: ci-repo
       trigger: true
-      passed: [ job-head ]
   - task: task-static
     file: ci-repo/concourse_examples/ci/tasks/task-static/task.yml
 
