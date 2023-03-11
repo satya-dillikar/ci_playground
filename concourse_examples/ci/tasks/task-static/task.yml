@@ -8,4 +8,4 @@ image_resource:
 inputs:
 - name: ci-repo
 run:
-  path: ci-repo/concourse_examples/ci/tasks/test-static/task.sh
+  path: ci-repo/concourse_examples/ci/tasks/task-static/task.sh

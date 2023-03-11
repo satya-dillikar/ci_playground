@@ -7,7 +7,7 @@ set -o pipefail
 main() {
   local rc=0
 
-  cd repo
+  cd ci-repo
   ls -laR
   echo PWD ${PWD}
   return $rc
