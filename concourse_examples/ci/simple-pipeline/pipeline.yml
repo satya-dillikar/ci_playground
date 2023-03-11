@@ -7,7 +7,7 @@ resources:
     uri: https://((ci-repo.host))/((ci-repo.slug))
     branch: ((ci-repo.branch))
     paths:
-    - concourse_examples/ci/qs-test/
+    - concourse_examples/ci/simple-pipeline/
     - concourse_examples/ci/tasks/
 jobs:
 - name: set-pipeline
@@ -17,9 +17,9 @@ jobs:
       submodules: none
     trigger: true
   - set_pipeline: self
-    file: ci-repo/concourse_examples/ci/qs-test/pipeline.yml
+    file: ci-repo/concourse_examples/ci/simple-pipeline/pipeline.yml
     var_files:
-    - ci-repo/concourse_examples/ci/qs-test/pipeline.vars.yml
+    - ci-repo/concourse_examples/ci/simple-pipeline/pipeline.vars.yml
 
 #! ---> main ----
 - name: task-static
